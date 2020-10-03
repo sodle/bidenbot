@@ -1,0 +1,13 @@
+[Unit]
+Description=Biden Insult Generator for Discord
+After=network.target
+
+[Service]
+User=biden
+WorkingDirectory=/home/biden
+ExecStart=/usr/bin/env pipenv run start
+ExecStartPre=/usr/bin/env pipenv install
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,25 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/biden
+  - source: /biden.service
+    destination: /etc/systemd/system
+permissions:
+  - object: /home/biden
+    owner: biden
+    group: biden
+  - object: /etc/systemd/system/biden.service
+hooks:
+  BeforeInstall:
+    - location: hooks/beforeInstall.sh
+      runas: root
+  AfterInstall:
+    - location: hooks/afterInstall.sh
+      runas: root
+  ApplicationStart:
+    - location: hooks/appStart.sh
+      runas: root
+  ApplicationStop:
+    - location: hooks/appStop.sh
+      runas: root

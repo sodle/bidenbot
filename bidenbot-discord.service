@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=biden
 WorkingDirectory=/home/biden
-ExecStart=/usr/bin/env pipenv run start
+ExecStart=/usr/bin/env pipenv run discord
 ExecStartPre=/usr/bin/env pipenv install
 Restart=always
 StandardOutput=syslog+console

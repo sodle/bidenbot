@@ -5,11 +5,16 @@ files:
     destination: /home/biden
   - source: /bidenbot-discord.service
     destination: /etc/systemd/system
+  - source: /bidenbot-slack.service
+    destination: /etc/systemd/system
 permissions:
   - object: /home/biden
     owner: biden
     group: biden
   - object: /etc/systemd/system/bidenbot-discord.service
+    owner: root
+    group: root
+  - object: /etc/systemd/system/bidenbot-slack.service
     owner: root
     group: root
 hooks:

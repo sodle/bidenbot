@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+from typing import Union
 import discord
 
 import bidenbot
@@ -21,9 +22,12 @@ ROLL_TO_HIT = int(os.environ.get('ROLL_TO_HIT', 20))
 client = discord.Client(activity=discord.Game("!biden"))
 
 
-async def respond_to(message: discord.Message):
+async def respond_to(message: discord.Message, target: Union[str, None] = None):
+    if target is None:
+        target = message.author.mention
+
     try:
-        await message.channel.send(f"{message.author.mention} {bidenbot.get_random_tweet()}")
+        await message.channel.send(f"{target} {bidenbot.get_random_tweet()}")
     except discord.DiscordException as e:
         logger.error(e)
 
@@ -35,18 +39,24 @@ async def on_ready():
 
 @client.event
 async def on_message(message: discord.Message):
-    mention = message.author.display_name
+    username = message.author.display_name
     if message.content.lower().startswith('!biden'):
-        logger.info(f'{mention} provoked Biden!')
-        await respond_to(message)
+        if len(message.mentions) > 0:
+            for user in message.mentions:
+                logger.info(f'{username} set Biden upon {user.name}!')
+                await respond_to(message, target=user.mention)
+        else:
+            logger.info(f'{username} provoked Biden!')
+            await respond_to(message)
     else:
         roll = bidenbot.roll_d20()
-        logger.info(f'{mention} rolled {roll}, needed >={ROLL_TO_HIT} for a spontaneous insult...')
+        logger.info(f'{username} rolled {roll}, needed >={ROLL_TO_HIT} for a spontaneous insult...')
         if roll >= ROLL_TO_HIT:
-            logger.info(f'Spontaneously insulting {mention}!')
+            logger.info(f'Spontaneously insulting {username}!')
             await respond_to(message)
         else:
-            logger.info(f'{mention} avoided a spontaneous insult!')
+            logger.info(f'{username} avoided a spontaneous insult!')
 
 
-client.run(DISCORD_TOKEN)
+if __name__ == '__main__':
+    client.run(DISCORD_TOKEN)

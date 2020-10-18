@@ -15,7 +15,7 @@ This bot posts random tweets from [@BidenInsultBot](https://twitter.com/bidenins
 
 - [x] ~~_Basic insult functionality_~~
 - [x] ~~_CICD pipeline_~~
-- [ ] Sic Biden on another user with `!biden @JohnSmith#1234`
+- [X] ~~_Sic Biden on another user with `!biden @JohnSmith#1234`_~~
 - [ ] Slack support
 
 # Self-hosting / Development

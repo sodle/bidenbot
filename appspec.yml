@@ -3,13 +3,15 @@ os: linux
 files:
   - source: /
     destination: /home/biden
-  - source: /biden.service
+  - source: /bidenbot-discord.service
     destination: /etc/systemd/system
 permissions:
   - object: /home/biden
     owner: biden
     group: biden
-  - object: /etc/systemd/system/biden.service
+  - object: /etc/systemd/system/bidenbot-discord.service
+    owner: root
+    group: root
 hooks:
   BeforeInstall:
     - location: hooks/beforeInstall.sh

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-systemctl daemon-reload
-systemctl enable biden
+systemctl enable bidenbot-discord

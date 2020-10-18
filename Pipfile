@@ -8,9 +8,14 @@ verify_ssl = true
 [packages]
 discord = {py = "*"}
 boto3 = "*"
+slackclient = "*"
+slackeventsapi = "*"
+flask = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3"
 
 [scripts]
 discord = "python bidenbot-discord.py"
+slack = "gunicorn --config gunicorn.config.py bidenbot-slack:app"

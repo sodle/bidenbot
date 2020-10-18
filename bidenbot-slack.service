@@ -1,0 +1,14 @@
+[Unit]
+Description=Biden Insult Generator for Slack
+After=network.target
+
+[Service]
+WorkingDirectory=/home/biden
+ExecStart=/usr/bin/env pipenv run slack
+ExecStartPre=/usr/bin/env pipenv install
+Restart=always
+StandardOutput=syslog+console
+StandardError=syslog+console
+
+[Install]
+WantedBy=multi-user.target

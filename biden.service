@@ -8,6 +8,8 @@ WorkingDirectory=/home/biden
 ExecStart=/usr/bin/env pipenv run start
 ExecStartPre=/usr/bin/env pipenv install
 Restart=always
+StandardOutput=syslog+console
+StandardError=syslog+console
 
 [Install]
 WantedBy=multi-user.target

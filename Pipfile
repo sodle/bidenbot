@@ -13,4 +13,4 @@ boto3 = "*"
 python_version = "3"
 
 [scripts]
-start = "python biden.py"
+discord = "python bidenbot-discord.py"

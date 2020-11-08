@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import json
+import time
 from slackeventsapi import SlackEventAdapter
 from slack import WebClient
 from flask import Flask
@@ -31,15 +32,20 @@ slack_client = WebClient(token=SLACK_ACCESS_TOKEN)
 def on_message(payload):
     logger.info(json.dumps(payload))
 
-    mention = f"<@{payload['event']['user']}>"
+    user_target = payload['event']['user']
 
     mentioned_users = [e for e in payload['event']['blocks'][0]['elements'][0]['elements']
                        if e['type'] == 'user' and e['user_id'] != payload['authorizations'][0]['user_id']]
-
     logger.info(json.dumps(mentioned_users))
-
     if len(mentioned_users) > 0:
-        mention = f"<@{mentioned_users[0]['user_id']}>"
+        user_target = mentioned_users[0]['user_id']
+
+    target_profile = slack_client.users_info(user=user_target)
+    logger.info(target_profile)
+    if target_profile['user']['is_bot']:
+        time.sleep(10)
+
+    mention = f"<@{user_target}>"
 
     channel = payload['event']['channel']
     slack_client.chat_postMessage(channel=channel, text=f'{mention} {bidenbot.get_random_tweet()}',

@@ -30,7 +30,14 @@ slack_client = WebClient(token=SLACK_ACCESS_TOKEN)
 @slack_events_adapter.on('app_mention')
 def on_message(payload):
     logger.info(json.dumps(payload))
+
     mention = f"<@{payload['event']['user']}>"
+
+    mentioned_users = [e for e in payload['event']['blocks'][0]['elements']
+                       if e['type'] == 'user' and e['user_id'] != payload['authorizations'][0]['user_id']]
+    if len(mentioned_users) > 0:
+        mention = f"<@{mentioned_users[0]['user_id']}"
+
     channel = payload['event']['channel']
     slack_client.chat_postMessage(channel=channel, text=f'{mention} {bidenbot.get_random_tweet()}',
                                   thread_ts=payload['event'].get('thread_ts', None))

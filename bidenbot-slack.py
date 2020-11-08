@@ -39,7 +39,7 @@ def on_message(payload):
     logger.info(json.dumps(mentioned_users))
 
     if len(mentioned_users) > 0:
-        mention = f"<@{mentioned_users[0]['user_id']}"
+        mention = f"<@{mentioned_users[0]['user_id']}>"
 
     channel = payload['event']['channel']
     slack_client.chat_postMessage(channel=channel, text=f'{mention} {bidenbot.get_random_tweet()}',

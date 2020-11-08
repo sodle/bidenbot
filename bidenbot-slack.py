@@ -35,6 +35,9 @@ def on_message(payload):
 
     mentioned_users = [e for e in payload['event']['blocks'][0]['elements']
                        if e['type'] == 'user' and e['user_id'] != payload['authorizations'][0]['user_id']]
+
+    logger.info(json.dumps(mentioned_users))
+
     if len(mentioned_users) > 0:
         mention = f"<@{mentioned_users[0]['user_id']}"
 

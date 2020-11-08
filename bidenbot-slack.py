@@ -3,6 +3,7 @@ import sys
 import logging
 import json
 import time
+import threading
 from slackeventsapi import SlackEventAdapter
 from slack import WebClient
 from flask import Flask
@@ -27,6 +28,10 @@ app = Flask(__name__)
 slack_events_adapter = SlackEventAdapter(SLACK_SIGNING_SECRET, '/biden/slack/events', app)
 slack_client = WebClient(token=SLACK_ACCESS_TOKEN)
 
+def send_message(channel: str, text: str, thread_ts: str = None, delay_sec: int = 0):
+    time.sleep(delay_sec)
+    slack_client.chat_postMessage(channel=channel, text=text, thread_ts=thread_ts)
+
 
 @slack_events_adapter.on('app_mention')
 def on_message(payload):
@@ -42,14 +47,18 @@ def on_message(payload):
 
     target_profile = slack_client.users_info(user=user_target)
     logger.info(target_profile)
-    if target_profile['user']['is_bot']:
-        time.sleep(300)
 
     mention = f"<@{user_target}>"
 
     channel = payload['event']['channel']
-    slack_client.chat_postMessage(channel=channel, text=f'{mention} {bidenbot.get_random_tweet()}',
-                                  thread_ts=payload['event'].get('thread_ts', None))
+
+    send_thread = threading.Thread(target=send_message, kwargs={
+        'channel': channel,
+        'text': f'{mention} {bidenbot.get_random_tweet()}',
+        'thread_ts': payload['event'].get('thread_ts', None),
+        'delay_sec': 300 if target_profile['user']['is_bot'] else 0
+    })
+    send_thread.run()
 
 
 if __name__ == '__main__':

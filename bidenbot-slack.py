@@ -32,7 +32,8 @@ def on_message(payload):
     logger.info(json.dumps(payload))
     mention = f"<@{payload['event']['user']}>"
     channel = payload['event']['channel']
-    slack_client.chat_postMessage(channel=channel, text=f'{mention} {bidenbot.get_random_tweet()}')
+    slack_client.chat_postMessage(channel=channel, text=f'{mention} {bidenbot.get_random_tweet()}',
+                                  thread_ts=payload['event'].get('thread_ts', None))
 
 
 if __name__ == '__main__':

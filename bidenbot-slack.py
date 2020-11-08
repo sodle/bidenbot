@@ -43,7 +43,7 @@ def on_message(payload):
     target_profile = slack_client.users_info(user=user_target)
     logger.info(target_profile)
     if target_profile['user']['is_bot']:
-        time.sleep(10)
+        time.sleep(300)
 
     mention = f"<@{user_target}>"
 

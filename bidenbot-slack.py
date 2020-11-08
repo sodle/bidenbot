@@ -39,11 +39,12 @@ def on_message(payload):
 
     user_target = payload['event']['user']
 
-    mentioned_users = [e for e in payload['event']['blocks'][0]['elements'][0]['elements']
-                       if e['type'] == 'user' and e['user_id'] != payload['authorizations'][0]['user_id']]
-    logger.info(json.dumps(mentioned_users))
-    if len(mentioned_users) > 0:
-        user_target = mentioned_users[0]['user_id']
+    if 'blocks' in payload['event']:
+        mentioned_users = [e for e in payload['event']['blocks'][0]['elements'][0]['elements']
+                           if e['type'] == 'user' and e['user_id'] != payload['authorizations'][0]['user_id']]
+        logger.info(json.dumps(mentioned_users))
+        if len(mentioned_users) > 0:
+            user_target = mentioned_users[0]['user_id']
 
     target_profile = slack_client.users_info(user=user_target)
     logger.info(target_profile)

@@ -33,7 +33,7 @@ def on_message(payload):
 
     mention = f"<@{payload['event']['user']}>"
 
-    mentioned_users = [e for e in payload['event']['blocks'][0]['elements']
+    mentioned_users = [e for e in payload['event']['blocks'][0]['elements'][0]['elements']
                        if e['type'] == 'user' and e['user_id'] != payload['authorizations'][0]['user_id']]
 
     logger.info(json.dumps(mentioned_users))

@@ -49,7 +49,7 @@ async def on_message(message: discord.Message):
             logger.info(f'{username} provoked Biden!')
             await respond_to(message)
     else:
-        roll = bidenbot.roll_d20(with_disadvantage=True)
+        roll = bidenbot.roll_d20(with_disadvantage=False)
         logger.info(f'{username} rolled {roll}, needed >={ROLL_TO_HIT} for a spontaneous insult...')
         if roll >= ROLL_TO_HIT:
             logger.info(f'Spontaneously insulting {username}!')

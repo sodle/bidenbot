@@ -13,8 +13,13 @@ def get_random_tweet() -> str:
     return random.choice(tweets)
 
 
-def roll_d20() -> int:
+def roll_d20(with_disadvantage: bool = False) -> int:
     roll = random.randint(1, 20)
+
+    if with_disadvantage:
+        roll2 = random.randint(1, 20)
+        return min(roll, roll2)
+
     return roll
 
 

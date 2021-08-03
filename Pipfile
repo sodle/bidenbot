@@ -9,7 +9,7 @@ verify_ssl = true
 discord = {py = "*"}
 boto3 = "*"
 slackclient = "*"
-slackeventsapi = "*"
+slackeventsapi = { git = "https://github.com/antonio-te/python-slack-events-api.git" }
 flask = "*"
 gunicorn = "*"
 

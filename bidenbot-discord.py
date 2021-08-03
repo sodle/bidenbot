@@ -26,7 +26,7 @@ async def respond_to(message: discord.Message, target: Union[str, None] = None):
     tweet = bidenbot.get_random_tweet()
     if target is None:
         try:
-            await message.reply(content=tweet)
+            await message.reply(content=tweet, mention_author=False)
         except discord.DiscordException as e:
             logger.error(e)
     else:

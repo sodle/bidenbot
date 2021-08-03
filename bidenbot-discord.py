@@ -23,13 +23,17 @@ client = discord.Client(activity=discord.Game("!biden"))
 
 
 async def respond_to(message: discord.Message, target: Union[str, None] = None):
+    tweet = bidenbot.get_random_tweet()
     if target is None:
-        target = message.author.mention
-
-    try:
-        await message.channel.send(f"{target} {bidenbot.get_random_tweet()}")
-    except discord.DiscordException as e:
-        logger.error(e)
+        try:
+            await message.reply(tweet)
+        except discord.DiscordException as e:
+            logger.error(e)
+    else:
+        try:
+            await message.channel.send(f"{target} {tweet}")
+        except discord.DiscordException as e:
+            logger.error(e)
 
 
 @client.event

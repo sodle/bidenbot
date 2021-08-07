@@ -18,5 +18,5 @@ splunk-opentelemetry = {extras = ["all"], version = "*"}
 python_version = "3"
 
 [scripts]
-discord = "splunk-py-trace python bidenbot-discord.py"
+discord = "splunk-py-trace bidenbot-discord.py"
 slack = "gunicorn --config gunicorn.config.py bidenbot-slack:app"

@@ -10,6 +10,9 @@ ExecStartPre=/usr/bin/env pipenv install
 Restart=always
 StandardOutput=syslog+console
 StandardError=syslog+console
+Environment=OTEL_SERVICE_NAME='bidenbot-discord'
+Environment=OTEL_EXPORTER_OTLP_ENDPOINT='http://localhost:4317'
+Environment=OTEL_RESOURCE_ATTRIBUTES='deployment.environment=prod'
 
 [Install]
 WantedBy=multi-user.target

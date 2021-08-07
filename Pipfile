@@ -12,10 +12,11 @@ slackclient = "*"
 slackeventsapi = { git = "https://github.com/antonio-te/python-slack-events-api.git" }
 flask = "*"
 gunicorn = "*"
+splunk-opentelemetry = {extras = ["all"], version = "*"}
 
 [requires]
 python_version = "3"
 
 [scripts]
-discord = "python bidenbot-discord.py"
+discord = "splunk-py-trace bidenbot-discord.py"
 slack = "gunicorn --config gunicorn.config.py bidenbot-slack:app"

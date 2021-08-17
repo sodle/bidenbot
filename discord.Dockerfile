@@ -1,8 +1,12 @@
 FROM python:3.9
 
-COPY . /app
-WORKDIR /app
 RUN pip install pipenv
+
+RUN useradd -m biden
+USER biden
+
+COPY . /home/biden
+WORKDIR /home/biden
 RUN pipenv install 
 
 ENTRYPOINT ["pipenv", "run", "discord"]

@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/biden
-ExecStart=/usr/bin/env pipenv run slack
-ExecStartPre=/usr/bin/env pipenv install
+ExecStart=/usr/bin/env python3 bidenbot-slack.py
+ExecStartPre=/usr/bin/env pip install --user -r requirements.txt
 Restart=always
 StandardOutput=syslog+console
 StandardError=syslog+console

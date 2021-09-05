@@ -5,8 +5,8 @@ After=network.target
 [Service]
 User=biden
 WorkingDirectory=/home/biden
-ExecStart=/usr/bin/env pipenv run discord
-ExecStartPre=/usr/bin/env pipenv install
+ExecStart=/usr/bin/env python3 bidenbot-discord.py
+ExecStartPre=/usr/bin/env pip install --user -r requirements.txt
 Restart=always
 StandardOutput=syslog+console
 StandardError=syslog+console

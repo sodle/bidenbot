@@ -1,5 +1,2 @@
 boto3~=1.18.36
 discord~=1.7.3
-Flask~=2.0.1
-slackclient~=2.9.3
-git+git://github.com/antonio-te/python-slack-events-api.git

@@ -1,14 +1,10 @@
 FROM python:3.9
 
-RUN pip install pipenv
-
 RUN useradd -m biden
 USER biden
 
 COPY . /home/biden
 WORKDIR /home/biden
-RUN pipenv install 
+RUN pip install --user discord
 
-RUN pipenv run splunk-py-trace-bootstrap
-
-ENTRYPOINT ["pipenv", "run", "discord"]
+ENTRYPOINT ["python3", "bidenbot-discord.py"]

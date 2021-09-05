@@ -44,8 +44,16 @@ async def on_ready():
 @client.event
 async def on_message(message: discord.Message):
     username = message.author.display_name
-    if message.content.lower().startswith('!biden'):
-        if len(message.mentions) > 0:
+
+    mentions = message.mentions
+    biden_mentioned = False
+    if len(mentions) > 0:
+        if mentions[0].mention == client.user.mention:
+            biden_mentioned = True
+            mentions = mentions[1:]
+
+    if message.content.lower().startswith('!biden') or biden_mentioned:
+        if len(mentions) > 0:
             for user in message.mentions:
                 logger.info(f'{username} set Biden upon {user.name}!')
                 await respond_to(message, target=user.mention)

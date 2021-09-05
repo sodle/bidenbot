@@ -5,6 +5,6 @@ USER biden
 
 COPY . /home/biden
 WORKDIR /home/biden
-RUN pip3 install --user requirements.txt
+RUN pip3 install --user -r requirements.txt
 
 ENTRYPOINT ["python3", "bidenbot-discord.py"]

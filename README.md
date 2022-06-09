@@ -44,3 +44,6 @@ https://discord.com/oauth2/authorize?client_id=<client_id>&scope=bot
 ```
 
 Where `<client_id>` is found on the "General Information" tab of the discord dev portal.
+
+# Docker
+Just use the image.
